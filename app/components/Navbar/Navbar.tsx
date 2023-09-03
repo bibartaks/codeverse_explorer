@@ -1,9 +1,12 @@
 import Link from "next/link"
 import React from "react"
+import styles from "./navbar.module.css"
 
 export default function Navbar() {
   return (
-    <nav className="py-5 border-b backdrop-blur-md">
+    <nav
+      className={`py-5 px-5 border-b backdrop-blur-xl sticky top-0 ${styles.nav_bg} z-100`}
+    >
       <div className="flex justify-between items-center container m-auto">
         <div>
           <h1 className="text-[1.3rem] font-semibold">CodeVerse Explorer</h1>
