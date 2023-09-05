@@ -21,7 +21,7 @@ export default async function PopularPosts() {
   return (
     <section className="bg-indigo-200 py-20">
       <div className="container m-auto py-10">
-        <h1 className=" text-2xl font-semibold mb-5">Popular Posts</h1>
+        <h1 className=" text-3xl font-semibold mb-5">Popular Posts</h1>
         <div className="container m-auto flex justify-between ">
           {popularBlog.map((blog: Blog) => (
             <div key={blog.title}>
@@ -38,7 +38,9 @@ export default async function PopularPosts() {
                   Write by: <span className="font-semibold">{blog.author}</span>
                 </p>
               </div>
-              <h1 className="max-w-sm	">{blog.title}</h1>
+              <h1 className="max-w-sm	 font-semibold text-[1.2rem]">
+                {blog.title}
+              </h1>
             </div>
           ))}
         </div>

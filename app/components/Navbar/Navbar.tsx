@@ -1,11 +1,12 @@
 import Link from "next/link"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import styles from "./navbar.module.css"
+import SignIn from "../SignIn/SignIn"
 
 export default function Navbar() {
   return (
     <nav
-      className={`py-5 px-5 border-b backdrop-blur-xl sticky top-0 ${styles.nav_bg} z-100`}
+      className={`py-4 px-5 border-b backdrop-blur-xl sticky top-0 ${styles.nav_bg} z-100`}
     >
       <div className="flex justify-between items-center container m-auto">
         <div>
@@ -27,15 +28,7 @@ export default function Navbar() {
           <Link className="mr-10" href="/">
             Write Blog
           </Link>
-          <Link
-            className="mr-10 bg-[#142850] text-white px-4 py-2 rounded-full"
-            href="/"
-          >
-            Sign In
-          </Link>
-          <Link className="mr-10" href="/">
-            Sign Up
-          </Link>
+          <SignIn />
         </div>
       </div>
     </nav>
