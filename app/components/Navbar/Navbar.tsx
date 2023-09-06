@@ -5,12 +5,10 @@ import SignIn from "../SignIn/SignIn"
 
 export default function Navbar() {
   return (
-    <nav
-      className={`py-4 px-5 border-b backdrop-blur-xl sticky top-0 ${styles.nav_bg} z-100`}
-    >
-      <div className="flex justify-between items-center container m-auto">
+    <nav>
+      <div className="flex justify-between items-center container m-auto border-b px-4 py-5">
         <div>
-          <h1 className="text-[1.3rem] font-semibold">CodeVerse Explorer</h1>
+          <h1 className="font-semibold">CodeVerse Explorer</h1>
         </div>
         <div>
           <Link className="mr-10" href="/">
@@ -28,7 +26,7 @@ export default function Navbar() {
           <Link className="mr-10" href="/">
             Write Blog
           </Link>
-          <SignIn />
+            <SignIn />
         </div>
       </div>
     </nav>

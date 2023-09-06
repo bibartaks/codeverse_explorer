@@ -27,10 +27,11 @@ export default async function PopularPosts() {
             <div key={blog.title}>
               <Image
                 src={blog.image}
-                height={500}
-                width={500}
+                width={1000}
+                height={1000}
                 alt="blog image"
-                className="mb-3"
+                className="mb-3 w-[500px] h-[auto]"
+                priority
               />
               <div className="flex  mb-2">
                 <p className="mr-2">Published: {blog.date},</p>

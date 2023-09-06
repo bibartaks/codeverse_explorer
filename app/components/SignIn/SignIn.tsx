@@ -39,19 +39,20 @@ export default function SignIn() {
     <>
       {user && (
         <Link
-          className="bg-[#3564c4] px-4 py-2 text-white rounded-full transition-opacity hover:opacity-[0.8]"
+          className="bg-[#3564c4] p-1  text-white rounded-full transition-opacity hover:opacity-[0.8]"
           href={"/profile"}
         >
           Profile
         </Link>
       )}{" "}
       {!user && (
-        <button
+        <Link
+        href={'/#'}
           onClick={handleSignIn}
-          className="bg-[#3564c4] px-4 py-2 text-white rounded-full transition-opacity hover:opacity-[0.8]"
+          className="bg-[#3564c4] p-1  text-white rounded-full transition-opacity hover:opacity-[0.8]"
         >
           Sign In
-        </button>
+        </Link>
       )}
     </>
   )

@@ -1,4 +1,5 @@
-import { db } from "../firebase"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+import { app, db } from "../firebase"
 import { collection, getDocs, query, where } from "firebase/firestore"
 
 type Blog = {
@@ -7,6 +8,8 @@ type Blog = {
   image: string
   date: string
 }
+
+const auth =  getAuth(app)
 
 // Javascript blog data
 export async function jsBlogData() {
@@ -34,3 +37,5 @@ export async function aiBlogData() {
   const blogData: Blog[] = querySnapshot.docs.map(doc => doc.data() as Blog)
   return blogData
 }
+
+
