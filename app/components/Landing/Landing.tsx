@@ -4,7 +4,7 @@ import Image from "next/image"
 export default function Landing() {
   return (
     <header className="h-[80vh] px-5 bg-[#142850] text-white">
-      <div className="container m-auto h-[100%] flex  justify-between items-center ">
+      <div className="w-[90%]  max-w-[1500px] m-auto h-[100%] flex  justify-between items-center px-2">
         <div>
           <h1 className="text-7xl mb-5">Stay curious.</h1>
           <p className="max-w-[600px] leading-[200%] mb-5">
