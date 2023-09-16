@@ -5,7 +5,7 @@ import Footer from "../Footer/Footer"
 export default function LandingFooter() {
   return (
     <>
-      <div className="bg-slate-800">
+      <div className="bg-gray-500">
         <div className="container m-auto flex items-center justify-between py-10">
           <div>
             <h1 className="text-white text-5xl font-bold mb-2">
@@ -27,7 +27,6 @@ export default function LandingFooter() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   )
 }

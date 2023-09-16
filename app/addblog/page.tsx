@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, FormEvent, useEffect } from "react"
+import React, { useState, FormEvent, useEffect, Fragment } from "react"
 import { db, app } from "../firebase" // Import Firestore from your firebase.js file
 import { addDoc, collection } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
@@ -8,6 +8,7 @@ import Image from "next/image"
 import SignIn from "../components/SignIn/SignIn"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { Dialog, Transition } from "@headlessui/react"
 
 interface BlogPost {
   title: string
@@ -19,6 +20,7 @@ interface BlogPost {
 
 export default function Page() {
   const [userIn, setUserIn] = useState<boolean>(false)
+  const [blogAddedClick, setBlogAddedClick] = useState(false)
 
   const auth = getAuth(app)
 
@@ -44,9 +46,12 @@ export default function Page() {
 
   console.log(userId)
 
+  console.log()
+
   const handleSubmit = async (e: FormEvent) => {
+    setBlogAddedClick(true)
     // toast("You blog added")
-    toast.success("Blog added")
+    // toast.success("Blog added")
     e.preventDefault()
 
     if (!userId) {
@@ -67,6 +72,7 @@ export default function Page() {
         category: formData.category,
         content: formData.content,
         imageUrl: formData.imageUrl,
+        date: new Date().toLocaleTimeString(),
         approved: false,
       })
 
@@ -85,6 +91,78 @@ export default function Page() {
 
   // const notify = () => toast.success("Blog added")
 
+  function MyDialog() {
+    let [isOpen, setIsOpen] = useState(true)
+
+    function closeModal() {
+      setIsOpen(false)
+      setBlogAddedClick(false)
+    }
+
+    function openModal() {
+      setIsOpen(true)
+    }
+
+    return (
+      <>
+        <Transition appear show={isOpen} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg font-medium leading-6 text-gray-900"
+                    >
+                      Your blog has been submited
+                    </Dialog.Title>
+                    <div className="mt-2">
+                      <p className="text-sm text-gray-500">
+                        Now you can find your blog in the prending section. If
+                        we like your blog then we gonna approved it😃
+                      </p>
+                    </div>
+
+                    <div className="mt-4">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModal}
+                      >
+                        Got it, thanks!
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
+      </>
+    )
+  }
+
   return (
     <>
       {!userIn && (
@@ -94,7 +172,8 @@ export default function Page() {
           </h1>
         </div>
       )}
-      <div className="mt-[5rem]">
+      {blogAddedClick ? <MyDialog /> : null}
+      <div className="mt-[5rem] min-h-[100vh]">
         {userIn && (
           <div className="h-[100%]">
             <h1 className="text-3xl text-center font-bold mb-20 tracking-[5px] text-gray-700	">
@@ -102,13 +181,7 @@ export default function Page() {
             </h1>
             <div className="h-[100%] flex justify-around items-center container m-auto">
               <div className="w-[100%]">
-                <Image
-                  src="/undraw_blog_post_re_fy5x.svg"
-                  width={500}
-                  height={500}
-                  alt=""
-                />
-                /{" "}
+                <Image src="/add_blog.svg" width={500} height={500} alt="" />
               </div>
 
               <form

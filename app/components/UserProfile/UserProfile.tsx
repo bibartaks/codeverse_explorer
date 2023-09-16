@@ -5,7 +5,7 @@ import SignOut from "../SignOut/SignOut"
 
 export default function UserProfile({ name, photoURL }: any) {
   return (
-    <div className="container text-center m-auto py-20">
+    <div className="container text-center m-auto py-20 min-h-[100vh]">
       <Image
         src={photoURL}
         height={100}

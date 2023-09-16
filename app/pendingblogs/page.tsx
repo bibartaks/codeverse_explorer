@@ -37,6 +37,19 @@ export default function PendingBlogs() {
       const q = query(userBlogPostsCollectionRef)
 
       // Fetch the documents
+      // getDocs(q)
+      //   .then(querySnapshot => {
+      //     const blogs: any = []
+      //     querySnapshot.forEach(doc => {
+      //       // Extract data from each document
+      //       const blogData = doc.data()
+      //       console.log(blogData)
+      //       blogs.push(blogData)
+      //     })
+      //     // Set the user's blogs in the state and set loading to false
+      //     setUserBlogs(blogs)
+      //     setLoading(false)
+      //   })
       getDocs(q)
         .then(querySnapshot => {
           const blogs: any = []
@@ -46,6 +59,12 @@ export default function PendingBlogs() {
             console.log(blogData)
             blogs.push(blogData)
           })
+          // Convert the date strings into JavaScript Date objects for sorting
+          blogs.forEach(blog => {
+            blog.timestamp = new Date(blog.date).getTime()
+          })
+          // Sort the blogs by timestamp in descending order (newest first)
+          blogs.sort((a: any, b: any) => b.timestamp - a.timestamp)
           // Set the user's blogs in the state and set loading to false
           setUserBlogs(blogs)
           setLoading(false)
