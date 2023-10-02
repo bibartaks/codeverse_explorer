@@ -2,6 +2,7 @@ import { db } from "../../firebase"
 import { collection, getDocs, where } from "firebase/firestore"
 import Image from "next/image"
 import { jsBlogData, reactBlogData, aiBlogData } from "@/app/lib/blogFeacher"
+import Link from "next/link"
 
 type Blog = {
   title: string
@@ -31,8 +32,11 @@ export default async function Blogs() {
           </h1>
           <div className=" grid grid-cols-1 gap-10">
             {jsBlogs.map((blog: Blog) => (
-              <>
-                <div key={blog.title} className="">
+              <Link
+                key={blog.title}
+                href={`blogs/${encodeURIComponent(blog.title)}`}
+              >
+                <div className="">
                   <Image
                     src={blog.image}
                     height={500}
@@ -53,7 +57,7 @@ export default async function Blogs() {
                     {blog.title}
                   </h1>
                 </div>
-              </>
+              </Link>
             ))}
           </div>
         </div>

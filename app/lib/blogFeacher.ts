@@ -9,7 +9,13 @@ type Blog = {
   date: string
 }
 
-const auth =  getAuth(app)
+const auth = getAuth(app)
+
+export async function allBlogData() {
+  const querySnapshot = await getDocs(collection(db, "blogs"))
+  const blogData: Blog[] = querySnapshot.docs.map(doc => doc.data() as Blog)
+  return blogData
+}
 
 // Javascript blog data
 export async function jsBlogData() {
@@ -37,5 +43,3 @@ export async function aiBlogData() {
   const blogData: Blog[] = querySnapshot.docs.map(doc => doc.data() as Blog)
   return blogData
 }
-
-

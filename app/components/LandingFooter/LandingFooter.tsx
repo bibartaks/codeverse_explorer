@@ -5,7 +5,7 @@ import Footer from "../Footer/Footer"
 export default function LandingFooter() {
   return (
     <>
-      <div className="bg-gray-500">
+      <div className="bg-[#374151]">
         <div className="container m-auto flex items-center justify-between py-10">
           <div>
             <h1 className="text-white text-5xl font-bold mb-2">

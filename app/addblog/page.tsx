@@ -179,7 +179,7 @@ export default function Page() {
             <h1 className="text-3xl text-center font-bold mb-20 tracking-[5px] text-gray-700	">
               Write a blog
             </h1>
-            <div className="h-[100%] flex justify-around items-center container m-auto">
+            <div className="h-[100%] flex-col md:flex-row lg:flex xl:flex justify-around items-center container m-auto">
               <div className="w-[100%]">
                 <Image src="/add_blog.svg" width={500} height={500} alt="" />
               </div>
