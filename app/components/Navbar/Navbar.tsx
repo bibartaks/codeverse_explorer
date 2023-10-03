@@ -1,7 +1,7 @@
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import styles from "./navbar.module.css"
-import SignIn from "../SignIn/SignIn"
+import SignIn from "../SignUp/SignIn"
 import Image from "next/image"
 
 export default function Navbar() {

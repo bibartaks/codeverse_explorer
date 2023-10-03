@@ -5,7 +5,7 @@ import { db, app } from "../firebase" // Import Firestore from your firebase.js 
 import { addDoc, collection } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import Image from "next/image"
-import SignIn from "../components/SignIn/SignIn"
+import SignIn from "../components/SignUp/SignIn"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { Dialog, Transition } from "@headlessui/react"
