@@ -1,7 +1,11 @@
 import { db } from "../../firebase"
 import { collection, getDocs, where } from "firebase/firestore"
 import Image from "next/image"
-import { jsBlogData, reactBlogData, aiBlogData } from "@/app/lib/blogFeacher"
+import {
+  jsBlogData,
+  reactBlogData,
+  aiBlogData,
+} from "@/app/utilities/blogFeacher"
 import Link from "next/link"
 
 type Blog = {

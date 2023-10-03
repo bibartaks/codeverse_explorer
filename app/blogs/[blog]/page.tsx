@@ -2,7 +2,7 @@ import { collection, getDocs, query, where } from "firebase/firestore"
 import React from "react"
 import { db } from "../../firebase"
 import Image from "next/image"
-import { allBlogData } from "../../lib/blogFeacher"
+import { allBlogData } from "../../utilities/blogFeacher"
 
 type Blog = {
   title: string

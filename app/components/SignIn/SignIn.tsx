@@ -18,8 +18,10 @@ export default function SignIn() {
   onAuthStateChanged(auth, user => {
     if (user) {
       setUser(true)
+      localStorage.setItem("user", "true")
     } else {
       setUser(null)
+      localStorage.setItem("user", "false")
     }
   })
 
@@ -37,7 +39,7 @@ export default function SignIn() {
 
   return (
     <>
-      {user && (
+      {localStorage.getItem("user") === "true" && (
         <Link
           className="bg-[#3564c4] px-2 py-1   text-white rounded-full transition-opacity hover:opacity-[0.8]"
           href={"/profile"}
@@ -45,7 +47,7 @@ export default function SignIn() {
           Profile
         </Link>
       )}{" "}
-      {!user && (
+      {localStorage.getItem("user") === "false" && (
         <Link
           href={"/#"}
           onClick={handleSignIn}

@@ -2,12 +2,12 @@ import React from "react"
 
 export default function Footer() {
   return (
-    <footer className="bg-[#111111] py-2 border-t">
+    <footer className="bg-[#9400FF] py-5 border-t">
       <div className="container m-auto flex justify-between items-center text-white">
         <div>
-          <h1>© 2023 codeverse explorer. All Rights Reserved</h1>
+          <h1>Crafted with strength 💪 and love 💗 by @bibartaks</h1>
         </div>
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <div className="mr-5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +174,7 @@ export default function Footer() {
               />
             </svg>
           </div>
-        </div>
+        </div> */}
       </div>
     </footer>
   )

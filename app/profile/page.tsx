@@ -5,28 +5,44 @@ import { app } from "../firebase"
 
 import React, { useEffect, useState } from "react"
 import UserProfile from "../components/UserProfile/UserProfile"
+// import UserProfile from "../components/UserProfile/UserProfile"
 
-export default  function Profile() {
+export default function Profile() {
   const [user, setUser] = useState<any>(null)
-  const auth = getAuth(app)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-
-    onAuthStateChanged(auth, user => {
+    const auth = getAuth(app)
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      setLoading(false) // Set loading to false once authentication state is determined
       if (user) {
         setUser(user)
+        if (typeof window !== "undefined") {
+          localStorage.setItem("user", "true")
+        }
       } else {
         setUser(null)
-      } 
+        if (typeof window !== "undefined") {
+          localStorage.setItem("user", "false")
+        }
+      }
     })
-  }, [auth])
 
+    return () => unsubscribe()
+  }, [])
+
+  if (loading) {
+    return <div className="min-h-[100vh]"></div> // Show a loading indicator while authentication state is being determined
+  }
 
   return (
     <>
-    {user ? (
-      <><UserProfile name={user?.displayName} photoURL={user?.photoURL}  /></>
-    ) : <h1 className="text-2xl font-bold p-5">You have to sign up</h1>}
+      {!loading &&
+        (user ? (
+          <UserProfile name={user?.displayName} photoURL={user?.photoURL} />
+        ) : (
+          <h1>lol</h1>
+        ))}
     </>
   )
 }

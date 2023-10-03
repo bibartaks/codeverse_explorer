@@ -19,19 +19,31 @@ interface BlogPost {
 }
 
 export default function Page() {
-  const [userIn, setUserIn] = useState<boolean>(false)
+  const [user, setUser] = useState<any>(null)
+
   const [blogAddedClick, setBlogAddedClick] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const auth = getAuth(app)
 
   useEffect(() => {
-    onAuthStateChanged(auth, user => {
+    const auth = getAuth(app)
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      setLoading(false) // Set loading to false once authentication state is determined
       if (user) {
-        setUserIn(true)
+        setUser(user)
+        if (typeof window !== "undefined") {
+          localStorage.setItem("user", "true")
+        }
       } else {
-        setUserIn(false)
+        setUser(null)
+        if (typeof window !== "undefined") {
+          localStorage.setItem("user", "false")
+        }
       }
     })
+
+    return () => unsubscribe()
   }, [])
 
   const [formData, setFormData] = useState<BlogPost>({
@@ -44,14 +56,8 @@ export default function Page() {
 
   const userId = auth.currentUser?.uid
 
-  console.log(userId)
-
-  console.log()
-
   const handleSubmit = async (e: FormEvent) => {
     setBlogAddedClick(true)
-    // toast("You blog added")
-    // toast.success("Blog added")
     e.preventDefault()
 
     if (!userId) {
@@ -88,8 +94,6 @@ export default function Page() {
       console.error("Error adding document: ", error)
     }
   }
-
-  // const notify = () => toast.success("Blog added")
 
   function MyDialog() {
     let [isOpen, setIsOpen] = useState(true)
@@ -163,84 +167,97 @@ export default function Page() {
     )
   }
 
-  return (
-    <>
-      {!userIn && (
-        <div className="h-[40vh] flex flex-col justify-center items-center]">
-          <h1 className="text-2xl text-center text-red-500 font-bold">
-            Sorry you have to login or sign up to write a blog
-          </h1>
-        </div>
-      )}
-      {blogAddedClick ? <MyDialog /> : null}
-      <div className="mt-[5rem] min-h-[100vh]">
-        {userIn && (
-          <div className="h-[100%]">
-            <h1 className="text-3xl text-center font-bold mb-20 tracking-[5px] text-gray-700	">
-              Write a blog
-            </h1>
-            <div className="h-[100%] flex-col md:flex-row lg:flex xl:flex justify-around items-center container m-auto">
-              <div className="w-[100%]">
-                <Image src="/add_blog.svg" width={500} height={500} alt="" />
-              </div>
+  if (loading) {
+    return <div className="min-h-[100vh]"></div> // Show a loading indicator while authentication state is being determined
+  }
 
-              <form
-                className="border w-[100%] flex flex-col items-start px-5 py-5"
-                onSubmit={handleSubmit}
-              >
-                <input
-                  id="title"
-                  className="border border-indigo-500 px-2 py-2 w-[80%] mb-5"
-                  type="text"
-                  placeholder="Enter your blog title"
-                  value={formData.title}
-                  onChange={e =>
-                    setFormData({ ...formData, title: e.target.value })
-                  }
-                  required
-                />
-                <input
-                  className="border border-indigo-500 px-2 py-2 w-[80%] mb-5"
-                  type="text"
-                  placeholder="Enter your blog category"
-                  value={formData.category}
-                  onChange={e =>
-                    setFormData({ ...formData, category: e.target.value })
-                  }
-                  required
-                />
-                <input
-                  className="border border-indigo-500 px-2 py-2 w-[80%] mb-5"
-                  type="text"
-                  placeholder="Enter your image url"
-                  value={formData.imageUrl}
-                  onChange={e =>
-                    setFormData({ ...formData, imageUrl: e.target.value })
-                  }
-                  required
-                />
-                <textarea
-                  className="border border-indigo-500 px-2 py-2 w-[80%] mb-5"
-                  rows={10}
-                  placeholder="Enter your blog content"
-                  value={formData.content}
-                  onChange={e =>
-                    setFormData({ ...formData, content: e.target.value })
-                  }
-                  required
-                ></textarea>
-                <button
-                  className="bg-indigo-500 px-5 py-2 text-white rounded-full transition-opacity hover:opacity-[0.8]"
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
+  return (
+    <div>
+      {!loading && (
+        <>
+          {!user && (
+            <div className="h-[40vh] flex flex-col justify-center items-center]">
+              <h1 className="text-2xl text-center text-red-500 font-bold">
+                Sorry you have to login or sign up to write a blog
+              </h1>
             </div>
+          )}
+          {blogAddedClick ? <MyDialog /> : null}
+          <div className="mt-[5rem] min-h-[100vh]">
+            {user && (
+              <div className="h-[100%]">
+                <h1 className="text-3xl text-center font-bold mb-20 tracking-[5px] text-gray-700	">
+                  Write a blog
+                </h1>
+                <div className="h-[100%] flex-col md:flex-row lg:flex xl:flex justify-around items-center container m-auto">
+                  <div className="w-[100%]">
+                    <Image
+                      src="/add_blog.svg"
+                      width={500}
+                      height={500}
+                      alt=""
+                    />
+                  </div>
+
+                  <form
+                    className="border w-[100%] flex flex-col items-start px-5 py-5"
+                    onSubmit={handleSubmit}
+                  >
+                    <input
+                      id="title"
+                      className="border border-indigo-500 px-2 py-2 w-[80%] mb-5"
+                      type="text"
+                      placeholder="Enter your blog title"
+                      value={formData.title}
+                      onChange={e =>
+                        setFormData({ ...formData, title: e.target.value })
+                      }
+                      required
+                    />
+                    <input
+                      className="border border-indigo-500 px-2 py-2 w-[80%] mb-5"
+                      type="text"
+                      placeholder="Enter your blog category"
+                      value={formData.category}
+                      onChange={e =>
+                        setFormData({ ...formData, category: e.target.value })
+                      }
+                      required
+                    />
+                    <input
+                      className="border border-indigo-500 px-2 py-2 w-[80%] mb-5"
+                      type="text"
+                      placeholder="Enter your image url"
+                      value={formData.imageUrl}
+                      onChange={e =>
+                        setFormData({ ...formData, imageUrl: e.target.value })
+                      }
+                      required
+                    />
+                    <textarea
+                      className="border border-indigo-500 px-2 py-2 w-[80%] mb-5"
+                      rows={10}
+                      placeholder="Enter your blog content"
+                      value={formData.content}
+                      onChange={e =>
+                        setFormData({ ...formData, content: e.target.value })
+                      }
+                      required
+                    ></textarea>
+                    <button
+                      className="bg-indigo-500 px-5 py-2 text-white rounded-full transition-opacity hover:opacity-[0.8]"
+                      type="submit"
+                    >
+                      Submit
+                    </button>
+                  </form>
+                </div>
+              </div>
+            )}
+            <ToastContainer />
           </div>
-        )}
-        <ToastContainer />
-      </div>
-    </>
+        </>
+      )}
+    </div>
   )
 }
