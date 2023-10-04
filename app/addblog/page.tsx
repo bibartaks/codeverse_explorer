@@ -5,7 +5,7 @@ import { db, app } from "../firebase" // Import Firestore from your firebase.js 
 import { addDoc, collection } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import Image from "next/image"
-import SignIn from "../components/SignUp/SignIn"
+import SignIn from "../components/SignUp/SignUp"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { Dialog, Transition } from "@headlessui/react"
@@ -32,14 +32,8 @@ export default function Page() {
       setLoading(false) // Set loading to false once authentication state is determined
       if (user) {
         setUser(user)
-        if (typeof window !== "undefined") {
-          localStorage.setItem("user", "true")
-        }
       } else {
         setUser(null)
-        if (typeof window !== "undefined") {
-          localStorage.setItem("user", "false")
-        }
       }
     })
 
@@ -168,7 +162,11 @@ export default function Page() {
   }
 
   if (loading) {
-    return <div className="min-h-[100vh]"></div> // Show a loading indicator while authentication state is being determined
+    return (
+      <div className="min-h-[100vh] flex flex-col justify-center items-center">
+        <Image src="/loading.gif" width={80} height={80} alt="lol" />
+      </div>
+    ) // Show a loading indicator while authentication state is being determined
   }
 
   return (

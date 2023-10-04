@@ -5,7 +5,7 @@ import { app } from "../firebase"
 
 import React, { useEffect, useState } from "react"
 import UserProfile from "../components/UserProfile/UserProfile"
-// import UserProfile from "../components/UserProfile/UserProfile"
+import Image from "next/image"
 
 export default function Profile() {
   const [user, setUser] = useState<any>(null)
@@ -14,17 +14,11 @@ export default function Profile() {
   useEffect(() => {
     const auth = getAuth(app)
     const unsubscribe = onAuthStateChanged(auth, user => {
-      setLoading(false) // Set loading to false once authentication state is determined
+      setLoading(false)
       if (user) {
         setUser(user)
-        if (typeof window !== "undefined") {
-          localStorage.setItem("user", "true")
-        }
       } else {
         setUser(null)
-        if (typeof window !== "undefined") {
-          localStorage.setItem("user", "false")
-        }
       }
     })
 
@@ -32,7 +26,11 @@ export default function Profile() {
   }, [])
 
   if (loading) {
-    return <div className="min-h-[100vh]"></div> // Show a loading indicator while authentication state is being determined
+    return (
+      <div className="min-h-[calc(100vh-100px)] flex flex-col justify-center items-center">
+        <Image src="/loading.gif" width={80} height={80} alt="lol" />
+      </div>
+    ) // Show a loading indicator while authentication state is being determined
   }
 
   return (
@@ -40,9 +38,7 @@ export default function Profile() {
       {!loading &&
         (user ? (
           <UserProfile name={user?.displayName} photoURL={user?.photoURL} />
-        ) : (
-          <h1>lol</h1>
-        ))}
+        ) : null)}
     </>
   )
 }

@@ -2,7 +2,7 @@ import React from "react"
 
 export default function Footer() {
   return (
-    <footer className="bg-[#9400FF] py-3 border-t">
+    <footer className="bg-gray-800 py-3 border-t">
       <div className="container m-auto flex justify-between items-center text-white">
         <div>
           <h1>Crafted with strength 💪 and love 💗 by @bibartaks</h1>

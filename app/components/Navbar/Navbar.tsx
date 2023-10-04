@@ -1,8 +1,9 @@
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import styles from "./navbar.module.css"
-import SignIn from "../SignUp/SignIn"
+import SignIn from "../SignUp/SignUp"
 import Image from "next/image"
+import SignInNavBtn from "../SignInNavBtn/SignInNavBtn"
 
 export default function Navbar() {
   return (
@@ -11,7 +12,7 @@ export default function Navbar() {
         <div>
           <h1 className="font-light tracking-[3px]">CodeVerse Explorer</h1>
         </div>
-        <div className="hidden lg:block">
+        <div className="hidden lg:flex items-center">
           <Link className="mr-10" href="/">
             Home
           </Link>
@@ -27,13 +28,13 @@ export default function Navbar() {
           <Link className="mr-10" href="/addblog">
             Write Blog
           </Link>
-          {/* <SignIn /> */}
-          <Link
-            className="mr-10 bg-[#9400FF] px-3 py-1 text-white rounded-full hover:opacity-90"
+          {/* <Link
+            className="mr-5 bg-[#9400FF] px-3 py-1 text-white rounded-full hover:opacity-90"
             href="/profile"
           >
             Profile
-          </Link>
+          </Link> */}
+          <SignInNavBtn />
         </div>
         <div className="block lg:hidden xl:hidden 2xl:hidden">
           <Image
