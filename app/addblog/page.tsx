@@ -183,7 +183,7 @@ export default function Page() {
           {blogAddedClick ? <MyDialog /> : null}
           <div className="mt-[5rem] min-h-[calc(100vh-110px)]">
             {user && (
-              <div className="h-[100%]">
+              <div className="h-[100%] pb-5 px-5">
                 <h1 className="text-3xl text-center font-bold mb-20 tracking-[5px] text-gray-700	">
                   Write a blog
                 </h1>
@@ -203,7 +203,7 @@ export default function Page() {
                   >
                     <input
                       id="title"
-                      className="border border-indigo-500 px-2 py-2 w-[80%] mb-5"
+                      className="border border-indigo-500 px-2 py-2 w-[100%] mb-5"
                       type="text"
                       placeholder="Enter your blog title"
                       value={formData.title}
@@ -213,7 +213,7 @@ export default function Page() {
                       required
                     />
                     <input
-                      className="border border-indigo-500 px-2 py-2 w-[80%] mb-5"
+                      className="border border-indigo-500 px-2 py-2 w-[100%] mb-5"
                       type="text"
                       placeholder="Enter your blog category"
                       value={formData.category}
@@ -223,7 +223,7 @@ export default function Page() {
                       required
                     />
                     <input
-                      className="border border-indigo-500 px-2 py-2 w-[80%] mb-5"
+                      className="border border-indigo-500 px-2 py-2 w-[100%] mb-5"
                       type="text"
                       placeholder="Enter your image url"
                       value={formData.imageUrl}
@@ -233,7 +233,7 @@ export default function Page() {
                       required
                     />
                     <textarea
-                      className="border border-indigo-500 px-2 py-2 w-[80%] mb-5"
+                      className="border border-indigo-500 px-2 py-2 w-[100%] mb-5"
                       rows={10}
                       placeholder="Enter your blog content"
                       value={formData.content}

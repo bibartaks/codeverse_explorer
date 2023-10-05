@@ -19,9 +19,7 @@ export default function Navbar() {
           <Link className="mr-10" href="/">
             Programming
           </Link>
-          <Link className="mr-10" href="/about">
-            About Us
-          </Link>
+
           <Link className="mr-10" href="/contact">
             Contact Us
           </Link>
