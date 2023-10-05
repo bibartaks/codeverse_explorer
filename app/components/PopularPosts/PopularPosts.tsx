@@ -11,12 +11,10 @@ type Blog = {
 }
 
 async function fetchData() {
-  const querySnapshot = await getDocs(collection(db, "popular_blogs"))
+  const querySnapshot = await getDocs(collection(db, "blogs"))
   const blogData: Blog[] = querySnapshot.docs.map(doc => doc.data() as Blog)
   return blogData
 }
-
-// function encodeURIComponent
 
 export default async function PopularPosts() {
   const popularBlog = await fetchData()
@@ -26,7 +24,7 @@ export default async function PopularPosts() {
       <div className="w-[90%]  max-w-[1500px] m-auto">
         <h1 className="text-3xl font-semibold mb-5">Popular Posts</h1>
         <div className="grid grid-cols-2 xl:grid-cols-3 gap-5">
-          {popularBlog.map((blog: Blog) => (
+          {popularBlog.slice(1, 4).map((blog: Blog) => (
             <div key={blog.title}>
               <Link href={`blogs/${encodeURIComponent(blog.title)}`}>
                 <Image

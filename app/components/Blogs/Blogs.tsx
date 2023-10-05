@@ -71,7 +71,10 @@ export default async function Blogs() {
           </h1>
           <div className=" grid grid-cols-1 gap-10">
             {reactBlogs.map((blog: Blog) => (
-              <>
+              <Link
+                href={`blogs/${encodeURIComponent(blog.title)}`}
+                key={blog?.title}
+              >
                 <div key={blog.title} className="">
                   <Image
                     src={blog.image}
@@ -91,7 +94,7 @@ export default async function Blogs() {
                     {blog.title}
                   </h1>
                 </div>
-              </>
+              </Link>
             ))}
           </div>
         </div>
@@ -101,7 +104,10 @@ export default async function Blogs() {
           </h1>
           <div className="grid grid-cols-1 gap-10">
             {aiBlogs.map((blog: Blog) => (
-              <>
+              <Link
+                href={`blogs/${encodeURIComponent(blog.title)}`}
+                key={blog?.title}
+              >
                 <div key={blog.title} className="">
                   <Image
                     src={blog.image}
@@ -121,7 +127,7 @@ export default async function Blogs() {
                     {blog.title}
                   </h1>
                 </div>
-              </>
+              </Link>
             ))}
           </div>
         </div>

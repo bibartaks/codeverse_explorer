@@ -16,10 +16,9 @@ export default function Navbar() {
           <Link className="mr-10" href="/">
             Home
           </Link>
-          <Link className="mr-10" href="/">
-            Programming
+          <Link className="mr-10" href="/blogs">
+            Blogs
           </Link>
-
           <Link className="mr-10" href="/contact">
             Contact Us
           </Link>

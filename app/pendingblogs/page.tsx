@@ -11,7 +11,7 @@ export default function PendingBlogs() {
   const [userBlogs, setUserBlogs] = useState<any>([])
   const [userId, setUserId] = useState<number | string>()
   console.log(userId)
-  const [loading, setLoading] = useState(true) // Add loading state
+  const [loading, setLoading] = useState(true)
   const lol = userId
 
   useEffect(() => {
@@ -19,12 +19,10 @@ export default function PendingBlogs() {
       if (user) {
         setUserId(user.reloadUserInfo.localId)
       } else {
-        //   setUser(null)
         setUserId(null)
       }
     })
 
-    // Create a reference to the 'blog_posts' subcollection for the user
     if (lol) {
       const userBlogPostsCollectionRef = collection<any>(
         db,
@@ -33,23 +31,8 @@ export default function PendingBlogs() {
         "blog_posts"
       )
 
-      // Create a query to get all documents in the subcollection
       const q = query(userBlogPostsCollectionRef)
 
-      // Fetch the documents
-      // getDocs(q)
-      //   .then(querySnapshot => {
-      //     const blogs: any = []
-      //     querySnapshot.forEach(doc => {
-      //       // Extract data from each document
-      //       const blogData = doc.data()
-      //       console.log(blogData)
-      //       blogs.push(blogData)
-      //     })
-      //     // Set the user's blogs in the state and set loading to false
-      //     setUserBlogs(blogs)
-      //     setLoading(false)
-      //   })
       getDocs(q)
         .then(querySnapshot => {
           const blogs: any = []
@@ -80,24 +63,32 @@ export default function PendingBlogs() {
     <>
       <div className="py-20 container m-auto">
         <h2 className="text-3xl font-bold mb-5">Your Submitted Blogs:</h2>
-        {loading
-          ? Array(2)
-              .fill(2)
-              .map((_, index) => <LoadingSkeletonPendingBLog key={index} />) // Display a loading indicator while fetching data
-          : userBlogs.map((blog, index: any) => (
-              <div key={index} className="border py-5 px-5 mb-5">
-                <h3 className="mb-5 text-2xl">
-                  <span className="font-bold">Title:</span> {blog.title}
-                </h3>
-                <p className="mb-5 bg-indigo-500 inline-block px-2 py-2 text-white">
-                  <span className="font-bold">Category:</span> {blog.category}
-                </p>
-                <p className="text-justify leading-[200%]">
-                  <span className="font-bold">Blog Content:</span>{" "}
-                  {blog.content}
-                </p>
-              </div>
-            ))}
+        {loading ? (
+          <div className="min-h-[calc(100vh-110px)]">
+            {
+              Array(5)
+                .fill(5)
+                .map((_, index) => (
+                  <LoadingSkeletonPendingBLog key={index} />
+                )) // Display a loading indicator while fetching data
+            }
+          </div>
+        ) : (
+          userBlogs.map((blog, index: any) => (
+            <div key={index} className="border py-5 px-5 mb-5">
+              <h3 className="mb-5 text-2xl">
+                <span className="font-bold">Title:</span> {blog.title}
+              </h3>
+              <p className="mb-5 bg-indigo-500 inline-block px-2 py-2 text-white">
+                <span className="font-bold text-sm">Category:</span>{" "}
+                {blog.category}
+              </p>
+              <p className="text-justify leading-[200%]">
+                <span className="font-bold">Blog Content:</span> {blog.content}
+              </p>
+            </div>
+          ))
+        )}
       </div>
     </>
   )
