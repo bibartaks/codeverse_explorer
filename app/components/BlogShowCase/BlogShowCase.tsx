@@ -29,7 +29,7 @@ export default function Blog({
 }) {
   return (
     <>
-      <div className="max-w-[1600px] px-5 flex flex-col lg:flex-row xl:flex-row xll:flex-row">
+      <div className="max-w-[1600px]  flex flex-col lg:flex-row xl:flex-row xll:flex-row">
         <div className="mr-20 w-[100%]">
           <Image src={img} alt="Blog Image" width={1000} height={1000} />
           <h1 className="font-bold py-5 text-2xl">{title}</h1>

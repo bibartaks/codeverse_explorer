@@ -2,6 +2,7 @@ import { collection, getDocs } from "firebase/firestore"
 import React from "react"
 import { db } from "../firebase"
 import Image from "next/image"
+import Link from "next/link"
 
 type Blog = {
   title: string
@@ -25,15 +26,17 @@ export default async function Blogs() {
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-10">
         {blogData.map(blog => (
           <div key={blog.title}>
-            <Image
-              src={blog.image}
-              alt="blogimage"
-              width={1000}
-              height={1000}
-              className="mb-2"
-            />
-            <h1 className="mb-2">{blog.title}</h1>
-            <p className="text-gray-400">#{blog.category}</p>
+            <Link href={`blogs/${encodeURIComponent(blog.title)}`}>
+              <Image
+                src={blog.image}
+                alt="blogimage"
+                width={1000}
+                height={1000}
+                className="mb-2"
+              />
+              <h1 className="mb-2">{blog.title}</h1>
+              <p className="text-gray-400">#{blog.category}</p>
+            </Link>
           </div>
         ))}
       </div>

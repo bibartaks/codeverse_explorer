@@ -7,7 +7,7 @@ export default function Landing() {
   return (
     // <header className="h-[80vh] px-5 bg-[#142850] text-white">
     <header className="h-[80vh] px-5 bg-[#27005D] text-white">
-      <div className="w-[100%]  max-w-[1500px] m-auto h-[100%] flex  justify-between items-center px-2">
+      <div className="container  m-auto h-[100%] flex  justify-between items-center px-5">
         <div>
           <h1 className="text-3xl lg:text-7xl xll:text-7xl xll:text-7xl mb-5">
             Stay curious.
