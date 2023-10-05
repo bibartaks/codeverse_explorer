@@ -5,7 +5,7 @@ import SignOut from "../SignOut/SignOut"
 
 export default function UserProfile({ name, photoURL }: any) {
   return (
-    <div className="container text-center m-auto py-[15rem] min-h-[calc(100vh-110px)]">
+    <div className="container text-center m-auto py-[5rem] lg:py-[15rem] xl:py-[15rem] xll:py-[15rem] min-h-[calc(100vh-110px)] ">
       <div>
         {!photoURL && (
           <svg
@@ -32,25 +32,27 @@ export default function UserProfile({ name, photoURL }: any) {
         )}
         <h1 className="text-2xl font-semibold mb-5">Welcome, {name}</h1>
         <h4 className="text-1xl mb-10">What you wanna do today?</h4>
-        <Link
-          className="bg-[#142850] text-white px-5 py-2 mr-5 hover:opacity-[0.8]"
-          href={"/addblog"}
-        >
-          Write a blog
-        </Link>
-        <Link
-          className="bg-[#142850] text-white px-5 py-2 mr-5 hover:opacity-[0.8]"
-          href={"/pendingblogs"}
-        >
-          Pending blog
-        </Link>
-        <Link
-          className="bg-[#142850] text-white px-5 py-2 mr-5 hover:opacity-[0.8]"
-          href={"/manageblog"}
-        >
-          Manage blog
-        </Link>
-        <SignOut />
+        <div className="flex flex-col lg:block xl:block xll:block max-w-[80%] m-auto">
+          <Link
+            className="bg-[#142850] text-white px-5 py-2 mb-3 lg:mr-5 xl:mr-5 xll:mr-5 hover:opacity-[0.8]"
+            href={"/addblog"}
+          >
+            Write a blog
+          </Link>
+          <Link
+            className="bg-[#142850] text-white px-5 py-2 mb-3 lg:mr-5 xl:mr-5 xll:mr-5 hover:opacity-[0.8]"
+            href={"/pendingblogs"}
+          >
+            Pending blog
+          </Link>
+          <Link
+            className="bg-[#142850] text-white px-5 py-2 mb-3 lg:mr-5 xl:mr-5 xll:mr-5 hover:opacity-[0.8]"
+            href={"/manageblog"}
+          >
+            Manage blog
+          </Link>
+          <SignOut />
+        </div>
       </div>
     </div>
   )
