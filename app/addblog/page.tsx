@@ -163,7 +163,7 @@ export default function Page() {
 
   if (loading) {
     return (
-      <div className="min-h-[100vh] flex flex-col justify-center items-center">
+      <div className="min-h-[calc(100vh-110px)] flex flex-col justify-center items-center">
         <Image src="/loading.gif" width={80} height={80} alt="lol" />
       </div>
     ) // Show a loading indicator while authentication state is being determined
@@ -181,7 +181,7 @@ export default function Page() {
             </div>
           )}
           {blogAddedClick ? <MyDialog /> : null}
-          <div className="mt-[5rem] min-h-[100vh]">
+          <div className="mt-[5rem] min-h-[calc(100vh-110px)]">
             {user && (
               <div className="h-[100%]">
                 <h1 className="text-3xl text-center font-bold mb-20 tracking-[5px] text-gray-700	">
