@@ -12,6 +12,7 @@ type Blog = {
   blog_post: string
   category: string
   like: number
+  otherPost: any
 }
 
 async function fetchData(title: string) {
@@ -39,7 +40,7 @@ export default async function Blog({ params }: { params: { blog: string } }) {
       <BlogShowCase
         img={blogData[0]?.image}
         title={blogData[0]?.title}
-        arthur={blogData[0]?.aurthor}
+        author={blogData[0]?.aurthor}
         date={blogData[0]?.date}
         blog_post={blogData[0]?.blog_post}
         category={blogData[0]?.category}

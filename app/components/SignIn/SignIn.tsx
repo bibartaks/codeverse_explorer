@@ -36,7 +36,7 @@ export default function SignIn() {
   //   return () => unsubscribe()
   // }, [])
 
-  async function handleSignInWithEmailAndPassword(e) {
+  async function handleSignInWithEmailAndPassword(e: React.FormEvent) {
     e.preventDefault()
 
     try {
@@ -49,10 +49,7 @@ export default function SignIn() {
       const user = userCredential.user
       console.log("User logged in:", user)
     } catch (error) {
-      // Handle Errors here.
-      const errorCode = error.code
-      const errorMessage = error.message
-      console.error("Error:", errorCode, errorMessage)
+      console.error("Error:", error)
     }
   }
 
@@ -129,10 +126,12 @@ export default function SignIn() {
           </div>
         </Dialog>
       </Transition>
-      <div className="min-h-[100vh] grid grid-cols-2">
-        <div className={`p-20 text-white ${style.bg}`}>
+      <div className="min-h-[100vh] grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 ">
+        <div
+          className={`p-20 text-white ${style.bg} hidden lg:block xl:block 2xl:block `}
+        >
           <div className="h-[100%] max-h-[95%] flex flex-col justify-between">
-            <h1 className="text-1xl font-semibold">Codeverse Explorer</h1>
+            <h1 className="text-2xl font-semibold">Codeverse Explorer</h1>
             <h1>
               “This library has saved me countless hours of work and helped me
               deliver stunning designs to my clients faster than ever before.”
@@ -140,7 +139,7 @@ export default function SignIn() {
             </h1>
           </div>
         </div>
-        <div className="p-20">
+        <div className="p-5 lg:p-20 xl:p-20 2xl:p-20">
           <div className="flex justify-end">
             <Link
               href="/signup"
@@ -150,10 +149,10 @@ export default function SignIn() {
             </Link>
           </div>
           <div className="h-[80%] flex flex-col justify-center items-center  w-[100%]">
-            <h1 className="font-semibold text-2xl mb-2">
-              Login in to your account
-            </h1>
-            <p className="mb-5">Fill the form to login to your account</p>
+            <h1 className="font-semibold text-2xl mb-2">Login In</h1>
+            <p className="mb-5 text-sm">
+              Fill the form to login to your account
+            </p>
             <form className="w-[100%] mb-5">
               <input
                 type="email"
@@ -176,9 +175,7 @@ export default function SignIn() {
                 Sign In
               </button>
             </form>
-            <p className="text-gray-600  mb-5">
-              ------------- OR CONTINUE WITH -------------
-            </p>
+            <p className="text-gray-600  mb-5">OR CONTINUE WITH</p>
             <button
               onClick={handleSignIn}
               className="flex items-center justify-center border min-w-[50%] py-2 text-sm rounded-md  transition-colors hover:bg-gray-100"

@@ -4,13 +4,14 @@ import styles from "./navbar.module.css"
 import SignIn from "../SignUp/SignUp"
 import Image from "next/image"
 import SignInNavBtn from "../SignInNavBtn/SignInNavBtn"
+import MobileNavbar from "../MobileNavbar/MobileNavbar"
 
 export default function Navbar() {
   return (
     <nav className="border-b sticky top-0 bg-[#E4F1FF]">
       <div className="flex justify-between items-center m w-[90%] m-auto max-w-[1500px]   px-2 py-4">
         <div>
-          <h1 className="font-light tracking-[3px]">CodeVerse Explorer</h1>
+          <h1 className="font-light tracking-[1px]">CodeVerse Explorer</h1>
         </div>
         <div className="hidden lg:flex items-center">
           <Link className="mr-10" href="/">
@@ -34,12 +35,7 @@ export default function Navbar() {
           <SignInNavBtn />
         </div>
         <div className="block lg:hidden xl:hidden 2xl:hidden">
-          <Image
-            src="/mobile_menu.png"
-            height={42}
-            width={42}
-            alt="mobile menu image"
-          />
+          <MobileNavbar />
         </div>
       </div>
     </nav>

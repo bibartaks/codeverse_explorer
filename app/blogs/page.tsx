@@ -8,6 +8,7 @@ type Blog = {
   author: string
   image: string
   date: string
+  category: string
 }
 
 async function fetchData() {

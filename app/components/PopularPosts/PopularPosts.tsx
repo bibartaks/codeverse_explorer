@@ -23,7 +23,7 @@ export default async function PopularPosts() {
     <section className="bg-indigo-200 py-20 px-2">
       <div className="w-[90%]  max-w-[1500px] m-auto">
         <h1 className="text-3xl font-semibold mb-5">Popular Posts</h1>
-        <div className="grid grid-cols-2 xl:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-5">
           {popularBlog.slice(1, 4).map((blog: Blog) => (
             <div key={blog.title}>
               <Link href={`blogs/${encodeURIComponent(blog.title)}`}>

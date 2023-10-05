@@ -50,7 +50,7 @@ export default async function Blogs() {
                   />
                   <div className="flex  mb-2">
                     <p className="mr-2 text-[0.9rem] xl:text-[1rem]">
-                      Published: {blog.date},
+                      {blog.date},
                     </p>
                     <p>
                       Write by:{" "}
@@ -84,7 +84,7 @@ export default async function Blogs() {
                     className="mb-3"
                   />
                   <div className="flex  mb-2">
-                    <p className="mr-2">Published: {blog.date},</p>
+                    <p className="mr-2"> {blog.date},</p>
                     <p>
                       Write by:{" "}
                       <span className="font-semibold">{blog.aurthor}</span>
@@ -117,7 +117,7 @@ export default async function Blogs() {
                     className="mb-3"
                   />
                   <div className="flex  mb-2">
-                    <p className="mr-2">Published: {blog.date},</p>
+                    <p className="mr-2"> {blog.date},</p>
                     <p>
                       Write by:{" "}
                       <span className="font-semibold">{blog.aurthor}</span>

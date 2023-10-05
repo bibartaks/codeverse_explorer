@@ -3,6 +3,7 @@ import React, { Fragment, useState } from "react"
 import Image from "next/image"
 import {
   GoogleAuthProvider,
+  User,
   createUserWithEmailAndPassword,
   getAuth,
   signInWithPopup,
@@ -42,14 +43,51 @@ export default function SignIn() {
     }
   }
 
-  function isValidEmail(email) {
+  function isValidEmail(email: string) {
     // Use a regular expression for email validation
     // This is a basic example, you can use a more comprehensive regex pattern
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email)
   }
 
-  async function handleSignInWithEmailAndPassword(e) {
+  // async function handleSignInWithEmailAndPassword(e: React.FormEvent) {
+  //   e.preventDefault()
+
+  //   if (!email || !password || !name) {
+  //     alert("Please fill out all fields.")
+  //     return // Prevent further execution of the function
+  //   }
+
+  //   if (email && password && name) {
+  //     try {
+  //       if (!isValidEmail(email)) {
+  //         alert("Invalid email format.")
+  //         return // Prevent further execution of the function
+  //       }
+  //       const userCredential = await createUserWithEmailAndPassword(
+  //         auth,
+  //         email,
+  //         password
+  //       )
+
+  //       await updateProfile(auth.currentUser, {
+  //         displayName: name,
+  //       })
+
+  //       // User signed up successfully
+  //       const user = userCredential.user
+  //       console.log("User signed up:", user)
+  //       alert("Congrats🥳 SignIn by email and password")
+  //     } catch (error) {
+  //       // Handle Errors here.
+  //       console.log(error)
+  //     }
+  //   } else {
+  //     setIsOpen(true)
+  //   }
+  // }
+
+  async function handleSignInWithEmailAndPassword(e: React.FormEvent) {
     e.preventDefault()
 
     if (!email || !password || !name) {
@@ -57,7 +95,7 @@ export default function SignIn() {
       return // Prevent further execution of the function
     }
 
-    console.log("fuck yuou")
+    console.log("fuck you")
     if (email && password && name) {
       try {
         if (!isValidEmail(email)) {
@@ -70,20 +108,24 @@ export default function SignIn() {
           password
         )
 
-        await updateProfile(auth.currentUser, {
-          displayName: name,
-        })
+        const currentUser: User | null = auth.currentUser
 
-        // User signed up successfully
-        const user = userCredential.user
-        console.log("User signed up:", user)
-        alert("Congrats🥳 SignIn by email and password")
+        if (currentUser) {
+          await updateProfile(currentUser, {
+            displayName: name,
+          })
+
+          // User signed up successfully
+          console.log("User signed up:", currentUser)
+          alert("Congrats🥳 SignIn by email and password")
+        } else {
+          console.error("Error: User not available after signup")
+        }
       } catch (error) {
         // Handle Errors here.
-        console.log(error)
+        console.error(error)
       }
     } else {
-      console.log("fuck yuou")
       setIsOpen(true)
     }
   }
@@ -143,8 +185,10 @@ export default function SignIn() {
           </div>
         </Dialog>
       </Transition> */}
-      <div className="min-h-[100vh] grid grid-cols-2">
-        <div className={`p-20 ${styles.bg} text-white`}>
+      <div className="min-h-[100vh] grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2">
+        <div
+          className={`p-20 ${styles.bg} text-white  hidden lg:block xl:block 2xl:block`}
+        >
           <div className="h-[100%] max-h-[95%] flex flex-col justify-between">
             <h1 className="text-2xl  tracking-wider font-semibold">
               Codeverse Explorer
@@ -157,7 +201,7 @@ export default function SignIn() {
             </h1>
           </div>
         </div>
-        <div className="p-20">
+        <div className="p-5 lg:p-20 xl:p-20 2xl:p-20">
           <div className="flex justify-end">
             <Link
               href="/signin"
@@ -206,9 +250,7 @@ export default function SignIn() {
                 Sign Up
               </button>
             </form>
-            <p className="text-gray-600 mb-5">
-              ------------- OR CONTINUE WITH -------------
-            </p>
+            <p className="text-gray-600 mb-5">OR CONTINUE WITH</p>
             <button
               onClick={handleSignIn}
               type="submit"

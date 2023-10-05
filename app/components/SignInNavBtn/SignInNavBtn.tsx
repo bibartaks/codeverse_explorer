@@ -9,13 +9,12 @@ import Image from "next/image"
 export default function SignInNavBtn() {
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
-  const [userPhoto, setUserPhoto] = useState(
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("photo"))
-      : null
+  const storedPhoto =
+    typeof window !== "undefined" ? localStorage.getItem("photo") : null
+  const [userPhoto, setUserPhoto] = useState<string | null>(
+    storedPhoto !== null ? JSON.parse(storedPhoto) : null
   )
 
-  console.log(userPhoto)
   const auth = getAuth(app)
 
   useEffect(() => {
@@ -48,7 +47,6 @@ export default function SignInNavBtn() {
           {userPhoto && (
             <Image
               src={userPhoto}
-              //   src={userPhoto}
               className="rounded-full py-0"
               width={32}
               height={32}
@@ -75,7 +73,7 @@ export default function SignInNavBtn() {
         </Link>
       ) : (
         <Link
-          className="mr-5 bg-gray-100 px-3 py-1 text-black border border-[#9400FF] rounded-full hover:opacity-90"
+          className="mr-5 bg-gray-100 px-2  py-1 text-black border border-[#9400FF] rounded-full hover:opacity-90"
           href="/signin"
         >
           Sign In
