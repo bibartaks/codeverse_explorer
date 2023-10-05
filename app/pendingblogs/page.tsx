@@ -24,6 +24,7 @@ interface Blog {
   // Add other properties if necessary
   date: number
   category: string
+  imageUrl: string
 }
 
 export default function PendingBlogs() {
@@ -33,6 +34,8 @@ export default function PendingBlogs() {
   console.log(userId)
   const [loading, setLoading] = useState(true)
   const lol = userId
+
+  console.log()
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {
@@ -104,6 +107,8 @@ export default function PendingBlogs() {
                 <span className="font-bold text-sm">Category:</span>{" "}
                 {blog.category}
               </p>
+              <p>Time submited: {blog.date}</p>
+              <p>{blog.imageUrl}</p>
               <p className="text-justify leading-[200%]">
                 <span className="font-bold">Blog Content:</span> {blog.content}
               </p>

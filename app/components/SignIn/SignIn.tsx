@@ -6,7 +6,6 @@ import React, { Fragment, useEffect, useState } from "react"
 import {
   GoogleAuthProvider,
   getAuth,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth"
@@ -14,6 +13,7 @@ import { app } from "../../firebase"
 import style from "../SignUp/SignUp.module.css"
 import { Dialog, Transition } from "@headlessui/react"
 import { useRouter } from "next/navigation"
+import { FirebaseError } from "firebase/app"
 
 export default function SignIn() {
   const [isOpen, setIsOpen] = useState(false)
@@ -22,44 +22,62 @@ export default function SignIn() {
 
   const router = useRouter()
 
+  function isValidEmail(email: string) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
   const auth = getAuth(app)
-
-  // useEffect(() => {
-  //   const auth = getAuth(app)
-  //   const unsubscribe = onAuthStateChanged(auth, user => {
-  //     if (user) {
-
-  //     } else {
-  //     }
-  //   })
-
-  //   return () => unsubscribe()
-  // }, [])
 
   async function handleSignInWithEmailAndPassword(e: React.FormEvent) {
     e.preventDefault()
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      )
-      // User logged in successfully
-      const user = userCredential.user
-      console.log("User logged in:", user)
-    } catch (error) {
-      console.error("Error:", error)
+    if (!email || !password) {
+      alert("Please fill out all fields.")
+      return // Prevent further execution of the function
+    }
+
+    if (email && password) {
+      try {
+        if (!isValidEmail(email)) {
+          alert("Invalid email format.")
+          return // Prevent further execution of the function
+        }
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        )
+        // User logged in successfully
+        const user = userCredential.user
+        setIsOpen(true)
+      } catch (error) {
+        if (
+          error instanceof FirebaseError &&
+          error.message.includes("auth/wrong-password")
+        ) {
+          alert("Wrong Password")
+        } else if (
+          error instanceof FirebaseError &&
+          error.message.includes("auth/user-not-found")
+        ) {
+          alert("User can't be found")
+        } else {
+          // Handle other types of errors or display a generic message
+          console.error("An error occurred:", error)
+        }
+      }
     }
   }
 
   async function handleSignIn() {
-    console.log("hello")
     const provider = new GoogleAuthProvider()
-
+    if (!isValidEmail(email)) {
+      alert("Invalid email format.")
+      return
+    }
     try {
       const result = await signInWithPopup(auth, provider)
-      // alert("Congrats🥳")
       setIsOpen(true)
     } catch (error) {
       console.error("Google Sign-In error:", error)
@@ -68,6 +86,7 @@ export default function SignIn() {
 
   function closeModal() {
     setIsOpen(false)
+    router.push("/profile")
   }
 
   return (
@@ -106,7 +125,7 @@ export default function SignIn() {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Now go to your dashboard
+                      {/* Now go to your dashboard */}
                     </p>
                   </div>
 
@@ -117,7 +136,7 @@ export default function SignIn() {
                       onClick={closeModal}
                       // onClick={isOpen ? router.push("/profile") : null}
                     >
-                      Got it, thanks!
+                      Now go to your profile
                     </button>
                   </div>
                 </Dialog.Panel>
@@ -132,11 +151,7 @@ export default function SignIn() {
         >
           <div className="h-[100%] max-h-[95%] flex flex-col justify-between">
             <h1 className="text-2xl font-semibold">Codeverse Explorer</h1>
-            <h1>
-              “This library has saved me countless hours of work and helped me
-              deliver stunning designs to my clients faster than ever before.”
-              Sofia Davis
-            </h1>
+            <h1>“This website help me a lot.”Jhon Doe</h1>
           </div>
         </div>
         <div className="p-5 lg:p-20 xl:p-20 2xl:p-20">
@@ -153,7 +168,7 @@ export default function SignIn() {
             <p className="mb-5 text-sm">
               Fill the form to login to your account
             </p>
-            <form className="w-[100%] mb-5">
+            <form className="min-w-[30%] mb-5">
               <input
                 type="email"
                 placeholder="Enter your email"

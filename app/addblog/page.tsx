@@ -9,6 +9,7 @@ import SignIn from "../components/SignUp/SignUp"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { Dialog, Transition } from "@headlessui/react"
+import Link from "next/link"
 
 interface BlogPost {
   title: string
@@ -170,18 +171,21 @@ export default function Page() {
   }
 
   return (
-    <div>
+    <div className="min-h-[calc(100vh-110px)]">
       {!loading && (
         <>
           {!user && (
-            <div className="h-[40vh] flex flex-col justify-center items-center]">
-              <h1 className="text-2xl text-center text-red-500 font-bold">
+            <div className="h-[calc(100vh-110px)] flex flex-col justify-center  items-center ">
+              <h1 className="text-2xl text-center text-red-500 font-bold ">
                 Sorry you have to login or sign up to write a blog
               </h1>
+              <Link href="/signin" className="underline mt-2">
+                Click here to login
+              </Link>
             </div>
           )}
           {blogAddedClick ? <MyDialog /> : null}
-          <div className="mt-[5rem] min-h-[calc(100vh-110px)]">
+          <div className="mt-[5rem]   flex flex-col justify-center ">
             {user && (
               <div className="h-[100%] pb-5 px-5">
                 <h1 className="text-3xl text-center font-bold mb-20 tracking-[5px] text-gray-700	">

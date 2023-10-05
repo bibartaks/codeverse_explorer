@@ -24,15 +24,7 @@ export default function SignIn() {
     setIsOpen(false)
   }
 
-  function openModal() {
-    setIsOpen(true)
-  }
-
-  console.log(auth.currentUser)
-  console.log(email, password)
-
   async function handleSignIn() {
-    console.log("hello")
     const provider = new GoogleAuthProvider()
 
     try {
@@ -44,147 +36,55 @@ export default function SignIn() {
   }
 
   function isValidEmail(email: string) {
-    // Use a regular expression for email validation
-    // This is a basic example, you can use a more comprehensive regex pattern
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email)
   }
-
-  // async function handleSignInWithEmailAndPassword(e: React.FormEvent) {
-  //   e.preventDefault()
-
-  //   if (!email || !password || !name) {
-  //     alert("Please fill out all fields.")
-  //     return // Prevent further execution of the function
-  //   }
-
-  //   if (email && password && name) {
-  //     try {
-  //       if (!isValidEmail(email)) {
-  //         alert("Invalid email format.")
-  //         return // Prevent further execution of the function
-  //       }
-  //       const userCredential = await createUserWithEmailAndPassword(
-  //         auth,
-  //         email,
-  //         password
-  //       )
-
-  //       await updateProfile(auth.currentUser, {
-  //         displayName: name,
-  //       })
-
-  //       // User signed up successfully
-  //       const user = userCredential.user
-  //       console.log("User signed up:", user)
-  //       alert("Congrats🥳 SignIn by email and password")
-  //     } catch (error) {
-  //       // Handle Errors here.
-  //       console.log(error)
-  //     }
-  //   } else {
-  //     setIsOpen(true)
-  //   }
-  // }
 
   async function handleSignInWithEmailAndPassword(e: React.FormEvent) {
     e.preventDefault()
 
     if (!email || !password || !name) {
       alert("Please fill out all fields.")
-      return // Prevent further execution of the function
+      return
     }
 
-    console.log("fuck you")
-    if (email && password && name) {
-      try {
-        if (!isValidEmail(email)) {
-          alert("Invalid email format.")
-          return // Prevent further execution of the function
-        }
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        )
-
-        const currentUser: User | null = auth.currentUser
-
-        if (currentUser) {
-          await updateProfile(currentUser, {
-            displayName: name,
-          })
-
-          // User signed up successfully
-          console.log("User signed up:", currentUser)
-          alert("Congrats🥳 SignIn by email and password")
-        } else {
-          console.error("Error: User not available after signup")
-        }
-      } catch (error) {
-        // Handle Errors here.
-        console.error(error)
+    try {
+      if (!isValidEmail(email)) {
+        alert("Invalid email format.")
+        return
       }
-    } else {
-      setIsOpen(true)
+
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+
+      const currentUser: User | null = auth.currentUser
+
+      if (currentUser) {
+        await updateProfile(currentUser, {
+          displayName: name,
+        })
+        console.log("User signed up:", currentUser)
+        alert("Congrats🥳 SignIn by email and password")
+        setIsOpen(true)
+      } else {
+        console.error("Error: User not available after signup")
+      }
+    } catch (error) {
+      // Handle Errors here.
+      if (error instanceof Error) {
+        window.alert(error.message || "An error occurred while signing up.")
+        console.error(error)
+      } else {
+        console.error("Non-Error object encountered:", error)
+      }
     }
   }
 
   return (
     <>
-      {/* <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
-                  >
-                    Please fill the form
-                  </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      To create your account
-                    </p>
-                  </div>
-
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Got it, thanks!
-                    </button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition> */}
       <div className="min-h-[100vh] grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2">
         <div
           className={`p-20 ${styles.bg} text-white  hidden lg:block xl:block 2xl:block`}
@@ -194,11 +94,7 @@ export default function SignIn() {
               Codeverse Explorer
             </h1>
 
-            <h1>
-              “This library has saved me countless hours of work and helped me
-              deliver stunning designs to my clients faster than ever before.”
-              Sofia Davis
-            </h1>
+            <h1>“This website help me a lot.”Jhon Doe</h1>
           </div>
         </div>
         <div className="p-5 lg:p-20 xl:p-20 2xl:p-20">

@@ -13,7 +13,7 @@ export default function MobileNavbar() {
   return (
     <div className="flex items-center">
       <Image
-        className="mr-2"
+        className="mr-3"
         onClick={handleOpenMenu}
         src="/mobile_menu.png"
         height={42}

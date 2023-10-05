@@ -6,6 +6,7 @@ import { app } from "../firebase"
 import React, { useEffect, useState } from "react"
 import UserProfile from "../components/UserProfile/UserProfile"
 import Image from "next/image"
+import Link from "next/link"
 
 export default function Profile() {
   const [user, setUser] = useState<any>(null)
@@ -38,7 +39,13 @@ export default function Profile() {
       {!loading &&
         (user ? (
           <UserProfile name={user?.displayName} photoURL={user?.photoURL} />
-        ) : null)}
+        ) : (
+          <div className="min-h-[calc(100vh-110px)] flex flex-col justify-center items-center">
+            <Link href="/signin" className="text-3xl font-bold  underline">
+              Please login
+            </Link>
+          </div>
+        ))}
     </>
   )
 }
