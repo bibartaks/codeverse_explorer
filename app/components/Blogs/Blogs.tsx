@@ -53,7 +53,7 @@ export default async function Blogs() {
                       {blog.date},
                     </p>
                     <p>
-                      Write by:{" "}
+                      Written by:{" "}
                       <span className="font-semibold">{blog.aurthor}</span>
                     </p>
                   </div>
@@ -86,7 +86,7 @@ export default async function Blogs() {
                   <div className="flex  mb-2">
                     <p className="mr-2"> {blog.date},</p>
                     <p>
-                      Write by:{" "}
+                      Written by:{" "}
                       <span className="font-semibold">{blog.aurthor}</span>
                     </p>
                   </div>
@@ -119,7 +119,7 @@ export default async function Blogs() {
                   <div className="flex  mb-2">
                     <p className="mr-2"> {blog.date},</p>
                     <p>
-                      Write by:{" "}
+                      Written by:{" "}
                       <span className="font-semibold">{blog.aurthor}</span>
                     </p>
                   </div>

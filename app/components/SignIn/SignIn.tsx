@@ -72,10 +72,7 @@ export default function SignIn() {
 
   async function handleSignIn() {
     const provider = new GoogleAuthProvider()
-    if (!isValidEmail(email)) {
-      alert("Invalid email format.")
-      return
-    }
+
     try {
       const result = await signInWithPopup(auth, provider)
       setIsOpen(true)

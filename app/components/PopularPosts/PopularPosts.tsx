@@ -5,7 +5,7 @@ import Link from "next/link"
 
 type Blog = {
   title: string
-  author: string
+  aurthor: string
   image: string
   date: string
 }
@@ -40,8 +40,8 @@ export default async function PopularPosts() {
                     Published: {blog.date},
                   </p>
                   <p>
-                    Write by:{" "}
-                    <span className="font-semibold">{blog.author}</span>
+                    Written by:{" "}
+                    <span className="font-semibold">{blog.aurthor}</span>
                   </p>
                 </div>
                 <h1 className="max-w-sm	font-semibold text-[1rem] xl:text-[1.2rem]">
